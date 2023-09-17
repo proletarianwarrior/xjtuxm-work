@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>数据展示</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://api.yztv.live/cdn/output.css">
+</head>
+
+<body class="bg-gray-100 text-gray-800" style="padding: 0;">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-bold mb-4 mt-8">Data List</h1>
+        <div class="w-full text-left">
+            <table class="table-auto w-full border-collapse">
+                <thead>
+                    <tr class="flex flex-row">
+                        <th class="flex-1 px-4 py-2 border border-gray-200 bg-gray-200">姓名</th>
+                        <th class="px-4 py-2 border border-gray-200 bg-gray-200 table-cell" style="width: 130px;">日期
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in data %}
+                    <tr class="flex flex-row">
+                        <td class="flex-1 flex-wrap border border-gray-200 px-4 py-2 whitespace-pre-wrap" style="height: 48px;">{{ item.name }}
+                        </td>
+                        <td class="flex-shrink-0 border border-gray-200 px-4 py-2 whitespace-pre-wrap table-cell"
+                            style="width: 130px; height: 48px;">{{ item.date }}</td>
+                    </tr>
+                    {% endfor %} 
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
