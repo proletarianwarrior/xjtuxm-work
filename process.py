@@ -10,12 +10,14 @@ from db.Database import Database
 from crawler.Crawler import Crawler
 
 
+# 获取爬虫数据结果
 def crawl_data():
     xjtu_crawler = Crawler()
     loop = asyncio.get_event_loop()
     return loop.run_until_complete(xjtu_crawler.main())
 
 
+# 数据库初始化
 def create_database(file_path, task_name):
     if not os.path.exists(file_path):
         database = Database(file_path)
@@ -31,6 +33,7 @@ def create_database(file_path, task_name):
     return database
 
 
+# 指定总初始化
 def main_process(file_path, task_name):
     database = create_database(file_path, task_name)
     data = crawl_data()

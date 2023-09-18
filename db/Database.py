@@ -8,6 +8,9 @@ import sqlite3
 
 
 class Database:
+    """
+    这个类用于对数据库进行初始化，插入，搜索功能的实现
+    """
     def __init__(self, db_filepath):
         db_is_new = not os.path.exists(db_filepath)
         with sqlite3.connect(db_filepath) as self.conn:
@@ -18,6 +21,12 @@ class Database:
         self.cursor = self.conn.cursor()
 
     def create_task(self, task_name, **columns):
+        """
+        这个函数用于在数据库中创建表单并设置表单列的名称
+        :param task_name: 任务名称
+        :param columns: 表单的列
+        :return: None
+        """
         command_string = "CREATE TABLE IF NOT EXISTS "
         task_string = "{task_name}({column_list})"
         column_list = []
@@ -33,6 +42,12 @@ class Database:
             print(error)
 
     def insert_data(self, task_name, **data):
+        """
+        这个函数用于将数据插入数据库中
+        :param task_name: 任务名称
+        :param data: 插入的数据
+        :return: None
+        """
         command_string = "INSERT INTO "
         task_string = "{task_name}({key_list}) values({value_list})"
 
@@ -51,6 +66,13 @@ class Database:
             print(error)
 
     def select_data(self, v_names, task_name, condition):
+        """
+        这个函数用于根据列名，搜索条件在指定任务中搜索数据
+        :param v_names: 列名
+        :param task_name: 任务名
+        :param condition: 条件
+        :return: 搜索结果
+        """
         v_names = ",".join(v_names)
         if condition:
             command_string = "SELECT {v_names} FROM {task_name} WHERE {condition}".format(
@@ -71,5 +93,5 @@ class Database:
 
 if __name__ == '__main__':
     database = Database("../database/xjtu.db")
-    a = database.select_data("*", "xjtuEA", "id BETWEEN 1 AND 15")
-    print(a)
+    data = database.select_data("*", "xjtuEA", "id BETWEEN 1 AND 15")
+    print(data)

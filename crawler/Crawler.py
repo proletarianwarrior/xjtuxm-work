@@ -105,8 +105,3 @@ if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     d = Crawler()
     result = loop.run_until_complete(d.main())
-    ids = [r["id"] for r in result]
-    from collections import Counter
-    print(len(result))
-    print(Counter(ids))
-    print(len(set(ids)))
