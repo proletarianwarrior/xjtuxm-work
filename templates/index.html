@@ -2,9 +2,20 @@
 <html>
 
 <head>
-    <title>数据展示</title>
+    <title>Data Display</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://api.yztv.live/cdn/output.css">
+    <form method="POST" action="/filter">
+        <label for="start_date">Start Date:</label>
+        <input type="date" id="start_date" name="start_date">
+        <label for="end_date">End Date:</label>
+        <input type="date" id="end_date" name="end_date">
+        <button type="submit">filter</button>
+    </form>
+    <form method="POST" action="/search">
+        <input type="text" id="key_word" name="key_word">
+        <button type="submit">submit</button>
+    </form>
 </head>
 
 <body class="bg-gray-100 text-gray-800" style="padding: 0;">
@@ -14,21 +25,26 @@
             <table class="table-auto w-full border-collapse">
                 <thead>
                     <tr class="flex flex-row">
-                        <th class="flex-1 px-4 py-2 border border-gray-200 bg-gray-200">姓名</th>
-                        <th class="px-4 py-2 border border-gray-200 bg-gray-200 table-cell" style="width: 130px;">日期
-                        </th>
+                        <th class="px-4 py-2 border border-gray-200 bg-gray-200" style="width: 100px;">ID</th>
+                        <th class="px-4 py-2 border border-gray-200 bg-gray-200" style="width: 500px;">Title</th>
+                        <th class="px-4 py-2 border border-gray-200 bg-gray-200 table-cell" style="width: 300px;">Date</th>
+                        <th class="px-4 py-2 border border-gray-200 bg-gray-200 table-cell" style="width: 400px;">Link</th>
                     </tr>
+
                 </thead>
                 <tbody>
                     {% for item in data %}
-                    <tr class="flex flex-row">
-                        <td class="flex-1 flex-wrap border border-gray-200 px-4 py-2 whitespace-pre-wrap" style="height: 48px;">{{ item.name }}
-                        </td>
-                        <td class="flex-shrink-0 border border-gray-200 px-4 py-2 whitespace-pre-wrap table-cell"
-                            style="width: 130px; height: 48px;">{{ item.date }}</td>
-                    </tr>
-                    {% endfor %} 
+                     <tr class="flex flex-row">
+                         <td class="flex-wrap border border-gray-200 px-4 py-2 whitespace-pre-wrap" style="width: 100px;height: 58px;">{{ item.id }}</td>
+                         <td class="flex-wrap border border-gray-200 px-4 py-2 whitespace-pre-wrap" style="width: 500px;height: 58px;">{{ item.title }}</td>
+                         <td class="flex-shrink-0 border border-gray-200 px-4 py-2 whitespace-pre-wrap table-cell"
+                             style="width: 300px;height: 58px;">{{ item.date }}</td>
+                         <td class="flex-shrink-0 border border-gray-200 px-4 py-2 whitespace-pre-wrap table-cell"
+                             style="width: 400px;height: 58px;"><a href="{{ item.link }}" target="_blank">{{ item.link }}</a></td>
+                     </tr>
+                     {% endfor %}
                 </tbody>
+
             </table>
         </div>
     </div>

@@ -3,3 +3,27 @@
 # @Author : DanYang
 # @File : DataSearch.py
 # @Software : PyCharm
+import jieba
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+
+
+def tokenize(text):
+    return " ".join(jieba.cut(text))
+
+
+def cut_word(words):
+    tokenized_titles = [tokenize(title["title"]) for title in words]
+    vectorizer = TfidfVectorizer()
+    tfidf_matrix = vectorizer.fit_transform(tokenized_titles)
+
+    return vectorizer, tfidf_matrix
+
+
+def call_similarities(vectorizer, tfidf_matrix, key_word):
+    user_query_vector = vectorizer.transform([tokenize(key_word)])
+    similarities = cosine_similarity(user_query_vector, tfidf_matrix)
+    sorted_indices = similarities.argsort()[0][::-1]
+
+    return sorted_indices
+

@@ -50,12 +50,26 @@ class Database:
             print("\033[91mException when inserting data\033[0m")
             print(error)
 
+    def select_data(self, v_names, task_name, condition):
+        v_names = ",".join(v_names)
+        if condition:
+            command_string = "SELECT {v_names} FROM {task_name} WHERE {condition}".format(
+                v_names=v_names,
+                task_name=task_name,
+                condition=condition
+            )
+        else:
+            command_string = "SELECT {v_names} FROM {task_name}".format(
+                v_names=v_names,
+                task_name=task_name
+            )
+        self.cursor.execute(command_string)
+        search_result = self.cursor.fetchall()
+
+        return search_result
+
 
 if __name__ == '__main__':
     database = Database("../database/xjtu.db")
-
-
-
-
-
-
+    a = database.select_data("*", "xjtuEA", "id BETWEEN 1 AND 15")
+    print(a)
